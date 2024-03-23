@@ -3,7 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity } from './user/user.entity';
+import { UserEntity } from './models/user.entity';
+import { PostEntity } from './models/post.entity';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { UserEntity } from './user/user.entity';
       username: 'admin',
       password: 'admin',
       database: 'database_name',
-      entities: [UserEntity], // Entidades (modelos)
+      entities: [UserEntity, PostEntity], // Entidades (modelos)
       synchronize: true, // Sincronizar esquemas con la base de datos (solo para desarrollo)
   }),
   ],
