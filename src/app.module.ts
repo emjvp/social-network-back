@@ -1,28 +1,29 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity } from './models/user.entity';
-import { PostEntity } from './models/post.entity';
+
+import { UsersModule } from './users/users.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
-  imports: [
+  imports:
+  [
     TypeOrmModule.forRoot({
       type: 'postgres', // Tipo de base de datos
       host: 'localhost',
       port: 5432,
-      username: 'admin',
+      username: 'postgres',
       password: 'admin',
-      database: 'database_name',
-      entities: [
-        UserEntity, 
-        PostEntity
-      ], // Entidades (modelos)
-      synchronize: true, // Sincronizar esquemas con la base de datos (solo para desarrollo)
-  }),
+      database: 'social_network_inlaze',
+      entities: ['dist/**/*.entity{.ts,.js}'],
+      synchronize: false, // Sincronizar esquemas con la base de datos (solo para desarrollo)
+      retryDelay: 3000,
+      retryAttempts: 10
+    }),
+    UsersModule,
+    PostsModule
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
