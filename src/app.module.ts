@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports:
@@ -16,12 +17,13 @@ import { PostsModule } from './posts/posts.module';
       password: 'admin',
       database: 'social_network_inlaze',
       entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: false, // Sincronizar esquemas con la base de datos (solo para desarrollo)
+      synchronize: true, // Sincronizar esquemas con la base de datos (solo para desarrollo)
       retryDelay: 3000,
       retryAttempts: 10
     }),
     UsersModule,
-    PostsModule
+    PostsModule,
+    AuthModule
   ],
   controllers: [],
   providers: [],
