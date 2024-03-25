@@ -11,11 +11,12 @@ import {
     SetMetadata
 } from '@nestjs/common';
 
-import { Post as PostModel } from "../../../entities/post.entity";
-import { PostsService } from 'src/posts/services/posts/posts.service';
+import { Post as PostModel } from "../../entities/post.entity";
+import { PostsService } from 'src/posts/services/posts.service';
 import { ApiKeyGuard } from 'src/auth/guards/api-key/api-key.guard';
+import { AuthGuard } from '@nestjs/passport';
 
-@UseGuards(ApiKeyGuard)
+@UseGuards(AuthGuard('jwt'))
 @Controller('api/posts')
 export class PostsController {
 
